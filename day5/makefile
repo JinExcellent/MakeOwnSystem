@@ -5,7 +5,7 @@ LD := ld
 CFLAGS := -Wall -m32 
 CFLAGS += -fno-pie -no-pie 
 CFLAGS += -ffunction-sections -nostdinc -nostdlib -fno-builtin -ffreestanding
-CFLAGS += -I ./include -I ./libc/include
+CFLAGS += -I ./include -I ../libc/include
 CFLAGS += -g
 QEMU_FLAGS += -no-reboot -d in_asm -m size=128
 #OBJS := IPL.bin OS.bin
