@@ -1,0 +1,55 @@
+     1                                  ;中断处理程序
+     2                                  [BITS 32]
+     3                                  
+     4                                  GLOBAL asm_INT_handler21, asm_INT_handler27, asm_INT_handler2c
+     5                                  
+     6                                  EXTERN INT_handler21, INT_handler27, INT_handler2c
+     7                                  
+     8                                  asm_INT_handler21:
+     9 00000000 06                          PUSH    ES          ;处理中断前
+    10 00000001 1E                          PUSH    DS
+    11 00000002 60                          PUSHAD
+    12 00000003 89E0                        MOV     EAX,ESP
+    13 00000005 50                          PUSH    EAX
+    14 00000006 668CD0                      MOV     AX,SS
+    15 00000009 8ED8                        MOV     DS,AX
+    16 0000000B 8EC0                        MOV     ES,AX
+    17 0000000D E8(00000000)                CALL    INT_handler21       ;调用中断处理函数
+    18 00000012 58                          POP     EAX                 ;中断返回
+    19 00000013 61                          POPAD   
+    20 00000014 1F                          POP     DS
+    21 00000015 07                          POP     ES
+    22 00000016 CF                          IRETD
+    23                                  
+    24                                  asm_INT_handler27:
+    25 00000017 06                          PUSH    ES          ;处理中断前
+    26 00000018 1E                          PUSH    DS
+    27 00000019 60                          PUSHAD
+    28 0000001A 89E0                        MOV     EAX,ESP
+    29 0000001C 50                          PUSH    EAX
+    30 0000001D 668CD0                      MOV     AX,SS
+    31 00000020 8ED8                        MOV     DS,AX
+    32 00000022 8EC0                        MOV     ES,AX
+    33 00000024 E8(00000000)                CALL    INT_handler27       ;调用中断处理函数
+    34 00000029 58                          POP     EAX                 ;中断返回
+    35 0000002A 61                          POPAD   
+    36 0000002B 1F                          POP     DS
+    37 0000002C 07                          POP     ES
+    38 0000002D CF                          IRETD
+    39                                  
+    40                                  asm_INT_handler2c:
+    41 0000002E 06                          PUSH    ES          ;处理中断前
+    42 0000002F 1E                          PUSH    DS
+    43 00000030 60                          PUSHAD
+    44 00000031 89E0                        MOV     EAX,ESP
+    45 00000033 50                          PUSH    EAX
+    46 00000034 668CD0                      MOV     AX,SS
+    47 00000037 8ED8                        MOV     DS,AX
+    48 00000039 8EC0                        MOV     ES,AX
+    49 0000003B E8(00000000)                CALL    INT_handler2c       ;调用中断处理函数
+    50 00000040 58                          POP     EAX                 ;中断返回
+    51 00000041 61                          POPAD   
+    52 00000042 1F                          POP     DS
+    53 00000043 07                          POP     ES
+    54 00000044 CF                          IRETD
+    55                                  
