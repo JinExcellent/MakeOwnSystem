@@ -1,0 +1,20 @@
+;以下两个函数用于加载GDT，IDT表
+[BITS 32]
+
+GLOBAL load_gdtr, load_idtr
+
+[SECTION .text]
+load_gdtr:              ;void load_gdtr(int limit, int addr);
+    MOV AX,[ESP+4]
+    MOV [ESP+6],AX
+    LGDT    [ESP+6]     ;将值传给LGDT寄存器
+    RET
+
+
+load_idtr:             ;void load_idtr(int limit, int addr);
+    MOV AX,[ESP+4]
+    MOV [ESP+6],AX
+    LIDT    [ESP+6]     ;值传给LIDT寄存器
+    RET
+
+   
