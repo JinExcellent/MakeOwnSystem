@@ -1,0 +1,17 @@
+break main
+break console_task
+break cons_runcmd
+break /home/jin/MakeOwnOS/day16/console.c:74
+break /home/jin/MakeOwnOS/day16/console.c:158
+break cmd_app
+break /home/jin/MakeOwnOS/day16/console.c:180
+break /home/jin/MakeOwnOS/day16/console.c:193
+break /home/jin/MakeOwnOS/day16/console.c:201
+break start_app
+break asm_hrb_api
+break /home/jin/MakeOwnOS/day16/asm_api.asm:16
+break hrb_api
+break /home/jin/MakeOwnOS/day16/api.c:10
+break /home/jin/MakeOwnOS/day16/api.c:13
+break /home/jin/MakeOwnOS/day16/api.c:15
+break /home/jin/MakeOwnOS/day16/api.c:17

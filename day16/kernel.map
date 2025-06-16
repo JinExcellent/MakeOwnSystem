@@ -1,0 +1,801 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+rom              0x0000000000000000 0x0000000000280000
+ram              0x0000000000280000 0x0000000000020000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000000000000                . = 0x0
+
+.text           0x0000000000000000      0xdd1 load address 0x0000000000280000
+ *(.text.main)
+ .text.main     0x0000000000000000      0xc04 bootpack.bin
+                0x0000000000000000                main
+ *(.text)
+ .text          0x0000000000000c04        0x0 bootpack.bin
+ *fill*         0x0000000000000c04        0xc 
+ .text          0x0000000000000c10       0xf6 asmfunc.bin
+                0x0000000000000c10                io_hlt
+                0x0000000000000c12                io_cli
+                0x0000000000000c14                io_sti
+                0x0000000000000c16                io_stihlt
+                0x0000000000000c19                io_in8
+                0x0000000000000c24                io_in16
+                0x0000000000000c30                io_in32
+                0x0000000000000c36                io_out8
+                0x0000000000000c40                io_out16
+                0x0000000000000c4c                io_out32
+                0x0000000000000c56                io_load_eflags
+                0x0000000000000c59                io_store_eflags
+                0x0000000000000c60                io_load_cr0
+                0x0000000000000c64                io_store_cr0
+                0x0000000000000c6c                memtest_sub
+                0x0000000000000cae                load_tr
+                0x0000000000000cb4                far_jmp
+                0x0000000000000cb9                far_call
+                0x0000000000000cbe                asm_cons_putchar
+                0x0000000000000cd8                start_app
+ *fill*         0x0000000000000d06        0xa 
+ .text          0x0000000000000d10       0x20 Stab.bin
+                0x0000000000000d10                load_gdtr
+                0x0000000000000d20                load_idtr
+ .text          0x0000000000000d30        0x0 desctbl.bin
+ .text          0x0000000000000d30        0x0 graphic.bin
+ .text          0x0000000000000d30        0x0 int.bin
+ .text          0x0000000000000d30       0x80 INThandler.bin
+                0x0000000000000d30                asm_INT_handler0d
+                0x0000000000000d54                asm_INT_handler20
+                0x0000000000000d6b                asm_INT_handler21
+                0x0000000000000d82                asm_INT_handler27
+                0x0000000000000d99                asm_INT_handler2c
+ .text          0x0000000000000db0        0x0 fifo.bin
+ .text          0x0000000000000db0        0x0 keyboard.bin
+ .text          0x0000000000000db0        0x0 mouse.bin
+ .text          0x0000000000000db0        0x0 memory.bin
+ .text          0x0000000000000db0        0x0 sheet.bin
+ .text          0x0000000000000db0        0x0 window.bin
+ .text          0x0000000000000db0        0x0 timer.bin
+ .text          0x0000000000000db0        0x0 task.bin
+ .text          0x0000000000000db0        0x0 file.bin
+ .text          0x0000000000000db0        0x0 console.bin
+ .text          0x0000000000000db0        0x0 cmd.bin
+ .text          0x0000000000000db0        0x0 api.bin
+ .text          0x0000000000000db0       0x21 asm_api.bin
+                0x0000000000000db0                asm_hrb_api
+ .text          0x0000000000000dd1        0x0 ../libc/stdio/stdio.bin
+ .text          0x0000000000000dd1        0x0 ../libc/string/strcmp.bin
+ .text          0x0000000000000dd1        0x0 ../libc/string/strncmp.bin
+ .text          0x0000000000000dd1        0x0 ../libc/stdlib/rand.bin
+ .text          0x0000000000000dd1        0x0 ../libc/ssp/ssp.bin
+
+.text.init_gdtidt
+                0x0000000000000dd1      0x191 load address 0x0000000000280dd1
+ .text.init_gdtidt
+                0x0000000000000dd1      0x191 desctbl.bin
+                0x0000000000000dd1                init_gdtidt
+
+.text.set_segmdesc
+                0x0000000000000f62       0x7b load address 0x0000000000280f62
+ .text.set_segmdesc
+                0x0000000000000f62       0x7b desctbl.bin
+                0x0000000000000f62                set_segmdesc
+
+.text.set_gatedesc
+                0x0000000000000fdd       0x45 load address 0x0000000000280fdd
+ .text.set_gatedesc
+                0x0000000000000fdd       0x45 desctbl.bin
+                0x0000000000000fdd                set_gatedesc
+
+.text.init_palette
+                0x0000000000001022       0x1d load address 0x0000000000281022
+ .text.init_palette
+                0x0000000000001022       0x1d graphic.bin
+                0x0000000000001022                init_palette
+
+.text.set_palette
+                0x000000000000103f       0xac load address 0x000000000028103f
+ .text.set_palette
+                0x000000000000103f       0xac graphic.bin
+                0x000000000000103f                set_palette
+
+.text.box_fill8
+                0x00000000000010eb       0x53 load address 0x00000000002810eb
+ .text.box_fill8
+                0x00000000000010eb       0x53 graphic.bin
+                0x00000000000010eb                box_fill8
+
+.text.init_screen8
+                0x000000000000113e      0x21d load address 0x000000000028113e
+ .text.init_screen8
+                0x000000000000113e      0x21d graphic.bin
+                0x000000000000113e                init_screen8
+
+.text.put_font8
+                0x000000000000135b      0x103 load address 0x000000000028135b
+ .text.put_font8
+                0x000000000000135b      0x103 graphic.bin
+                0x000000000000135b                put_font8
+
+.text.put_fonts8_asc
+                0x000000000000145e       0x50 load address 0x000000000028145e
+ .text.put_fonts8_asc
+                0x000000000000145e       0x50 graphic.bin
+                0x000000000000145e                put_fonts8_asc
+
+.text.init_mouse_cursor8
+                0x00000000000014ae       0xd7 load address 0x00000000002814ae
+ .text.init_mouse_cursor8
+                0x00000000000014ae       0xd7 graphic.bin
+                0x00000000000014ae                init_mouse_cursor8
+
+.text.put_block8_8
+                0x0000000000001585       0x6f load address 0x0000000000281585
+ .text.put_block8_8
+                0x0000000000001585       0x6f graphic.bin
+                0x0000000000001585                put_block8_8
+
+.text.put_font8_asc_sht
+                0x00000000000015f4       0x99 load address 0x00000000002815f4
+ .text.put_font8_asc_sht
+                0x00000000000015f4       0x99 graphic.bin
+                0x00000000000015f4                put_font8_asc_sht
+
+.text.init_pic  0x000000000000168d       0xdb load address 0x000000000028168d
+ .text.init_pic
+                0x000000000000168d       0xdb int.bin
+                0x000000000000168d                init_pic
+
+.text.INT_handler27
+                0x0000000000001768       0x18 load address 0x0000000000281768
+ .text.INT_handler27
+                0x0000000000001768       0x18 int.bin
+                0x0000000000001768                INT_handler27
+
+.text.INT_handler0d
+                0x0000000000001780       0x33 load address 0x0000000000281780
+ .text.INT_handler0d
+                0x0000000000001780       0x33 int.bin
+                0x0000000000001780                INT_handler0d
+
+.text.fifo32_init
+                0x00000000000017b3       0x47 load address 0x00000000002817b3
+ .text.fifo32_init
+                0x00000000000017b3       0x47 fifo.bin
+                0x00000000000017b3                fifo32_init
+
+.text.fifo32_put
+                0x00000000000017fa       0xa9 load address 0x00000000002817fa
+ .text.fifo32_put
+                0x00000000000017fa       0xa9 fifo.bin
+                0x00000000000017fa                fifo32_put
+
+.text.fifo32_get
+                0x00000000000018a3       0x6d load address 0x00000000002818a3
+ .text.fifo32_get
+                0x00000000000018a3       0x6d fifo.bin
+                0x00000000000018a3                fifo32_get
+
+.text.fifo32_status
+                0x0000000000001910       0x15 load address 0x0000000000281910
+ .text.fifo32_status
+                0x0000000000001910       0x15 fifo.bin
+                0x0000000000001910                fifo32_status
+
+.text.wait_KBC_sendready
+                0x0000000000001925       0x20 load address 0x0000000000281925
+ .text.wait_KBC_sendready
+                0x0000000000001925       0x20 keyboard.bin
+                0x0000000000001925                wait_KBC_sendready
+
+.text.init_keyboard
+                0x0000000000001945       0x41 load address 0x0000000000281945
+ .text.init_keyboard
+                0x0000000000001945       0x41 keyboard.bin
+                0x0000000000001945                init_keyboard
+
+.text.INT_handler21
+                0x0000000000001986       0x45 load address 0x0000000000281986
+ .text.INT_handler21
+                0x0000000000001986       0x45 keyboard.bin
+                0x0000000000001986                INT_handler21
+
+.text.enable_mouse
+                0x00000000000019cb       0x4e load address 0x00000000002819cb
+ .text.enable_mouse
+                0x00000000000019cb       0x4e mouse.bin
+                0x00000000000019cb                enable_mouse
+
+.text.mouse_decode
+                0x0000000000001a19      0x13f load address 0x0000000000281a19
+ .text.mouse_decode
+                0x0000000000001a19      0x13f mouse.bin
+                0x0000000000001a19                mouse_decode
+
+.text.INT_handler2c
+                0x0000000000001b58       0x57 load address 0x0000000000281b58
+ .text.INT_handler2c
+                0x0000000000001b58       0x57 mouse.bin
+                0x0000000000001b58                INT_handler2c
+
+.text.memtest   0x0000000000001baf       0xb7 load address 0x0000000000281baf
+ .text.memtest  0x0000000000001baf       0xb7 memory.bin
+                0x0000000000001baf                memtest
+
+.text.memman_init
+                0x0000000000001c66       0x2d load address 0x0000000000281c66
+ .text.memman_init
+                0x0000000000001c66       0x2d memory.bin
+                0x0000000000001c66                memman_init
+
+.text.memman_total
+                0x0000000000001c93       0x32 load address 0x0000000000281c93
+ .text.memman_total
+                0x0000000000001c93       0x32 memory.bin
+                0x0000000000001c93                memman_total
+
+.text.memman_alloc
+                0x0000000000001cc5       0xe8 load address 0x0000000000281cc5
+ .text.memman_alloc
+                0x0000000000001cc5       0xe8 memory.bin
+                0x0000000000001cc5                memman_alloc
+
+.text.memman_free
+                0x0000000000001dad      0x243 load address 0x0000000000281dad
+ .text.memman_free
+                0x0000000000001dad      0x243 memory.bin
+                0x0000000000001dad                memman_free
+
+.text.memman_alloc_4K
+                0x0000000000001ff0       0x23 load address 0x0000000000281ff0
+ .text.memman_alloc_4K
+                0x0000000000001ff0       0x23 memory.bin
+                0x0000000000001ff0                memman_alloc_4K
+
+.text.memman_free_4K
+                0x0000000000002013       0x26 load address 0x0000000000282013
+ .text.memman_free_4K
+                0x0000000000002013       0x26 memory.bin
+                0x0000000000002013                memman_free_4K
+
+.text.shtctl_init
+                0x0000000000002039       0xe2 load address 0x0000000000282039
+ .text.shtctl_init
+                0x0000000000002039       0xe2 sheet.bin
+                0x0000000000002039                shtctl_init
+
+.text.sheet_alloc
+                0x000000000000211b       0x77 load address 0x000000000028211b
+ .text.sheet_alloc
+                0x000000000000211b       0x77 sheet.bin
+                0x000000000000211b                sheet_alloc
+
+.text.sheet_updown
+                0x0000000000002192      0x385 load address 0x0000000000282192
+ .text.sheet_updown
+                0x0000000000002192      0x385 sheet.bin
+                0x0000000000002192                sheet_updown
+
+.text.sheet_refreshmap
+                0x0000000000002517      0x1b0 load address 0x0000000000282517
+ .text.sheet_refreshmap
+                0x0000000000002517      0x1b0 sheet.bin
+                0x0000000000002517                sheet_refreshmap
+
+.text.sheet_refreshsub
+                0x00000000000026c7      0x1c5 load address 0x00000000002826c7
+ .text.sheet_refreshsub
+                0x00000000000026c7      0x1c5 sheet.bin
+                0x00000000000026c7                sheet_refreshsub
+
+.text.sheet_refresh
+                0x000000000000288c       0x70 load address 0x000000000028288c
+ .text.sheet_refresh
+                0x000000000000288c       0x70 sheet.bin
+                0x000000000000288c                sheet_refresh
+
+.text.sheet_slide
+                0x00000000000028fc      0x113 load address 0x00000000002828fc
+ .text.sheet_slide
+                0x00000000000028fc      0x113 sheet.bin
+                0x00000000000028fc                sheet_slide
+
+.text.sheet_free
+                0x0000000000002a0f       0x2d load address 0x0000000000282a0f
+ .text.sheet_free
+                0x0000000000002a0f       0x2d sheet.bin
+                0x0000000000002a0f                sheet_free
+
+.text.sheet_setbuf
+                0x0000000000002a3c       0x29 load address 0x0000000000282a3c
+ .text.sheet_setbuf
+                0x0000000000002a3c       0x29 sheet.bin
+                0x0000000000002a3c                sheet_setbuf
+
+.text.make_window8
+                0x0000000000002a65      0x172 load address 0x0000000000282a65
+ .text.make_window8
+                0x0000000000002a65      0x172 window.bin
+                0x0000000000002a65                make_window8
+
+.text.make_textbox8
+                0x0000000000002bd7      0x1ff load address 0x0000000000282bd7
+ .text.make_textbox8
+                0x0000000000002bd7      0x1ff window.bin
+                0x0000000000002bd7                make_textbox8
+
+.text.make_title8
+                0x0000000000002dd6      0x105 load address 0x0000000000282dd6
+ .text.make_title8
+                0x0000000000002dd6      0x105 window.bin
+                0x0000000000002dd6                make_title8
+
+.text.init_pit  0x0000000000002edb       0xbc load address 0x0000000000282edb
+ .text.init_pit
+                0x0000000000002edb       0xbc timer.bin
+                0x0000000000002edb                init_pit
+
+.text.timer_init
+                0x0000000000002f97       0x22 load address 0x0000000000282f97
+ .text.timer_init
+                0x0000000000002f97       0x22 timer.bin
+                0x0000000000002f97                timer_init
+
+.text.timer_alloc
+                0x0000000000002fb9       0x6a load address 0x0000000000282fb9
+ .text.timer_alloc
+                0x0000000000002fb9       0x6a timer.bin
+                0x0000000000002fb9                timer_alloc
+
+.text.timer_free
+                0x0000000000003023        0xf load address 0x0000000000283023
+ .text.timer_free
+                0x0000000000003023        0xf timer.bin
+                0x0000000000003023                timer_free
+
+.text.timer_settimer
+                0x0000000000003032       0xb2 load address 0x0000000000283032
+ .text.timer_settimer
+                0x0000000000003032       0xb2 timer.bin
+                0x0000000000003032                timer_settimer
+
+.text.INT_handler20
+                0x00000000000030e4       0xb5 load address 0x00000000002830e4
+ .text.INT_handler20
+                0x00000000000030e4       0xb5 timer.bin
+                0x00000000000030e4                INT_handler20
+
+.text.taskswitch
+                0x0000000000003199       0xce load address 0x0000000000283199
+ .text.taskswitch
+                0x0000000000003199       0xce task.bin
+                0x0000000000003199                taskswitch
+
+.text.task_switchsub
+                0x0000000000003267       0x4f load address 0x0000000000283267
+ .text.task_switchsub
+                0x0000000000003267       0x4f task.bin
+                0x0000000000003267                task_switchsub
+
+.text.task_init
+                0x00000000000032b6      0x205 load address 0x00000000002832b6
+ .text.task_init
+                0x00000000000032b6      0x205 task.bin
+                0x00000000000032b6                task_init
+
+.text.task_alloc
+                0x00000000000034bb      0x11a load address 0x00000000002834bb
+ .text.task_alloc
+                0x00000000000034bb      0x11a task.bin
+                0x00000000000034bb                task_alloc
+
+.text.task_run  0x00000000000035d5       0x79 load address 0x00000000002835d5
+ .text.task_run
+                0x00000000000035d5       0x79 task.bin
+                0x00000000000035d5                task_run
+
+.text.task_add  0x000000000000364e       0x49 load address 0x000000000028364e
+ .text.task_add
+                0x000000000000364e       0x49 task.bin
+                0x000000000000364e                task_add
+
+.text.task_now  0x0000000000003697       0x30 load address 0x0000000000283697
+ .text.task_now
+                0x0000000000003697       0x30 task.bin
+                0x0000000000003697                task_now
+
+.text.task_sleep
+                0x00000000000036c7       0x52 load address 0x00000000002836c7
+ .text.task_sleep
+                0x00000000000036c7       0x52 task.bin
+                0x00000000000036c7                task_sleep
+
+.text.task_remove
+                0x0000000000003719       0xbe load address 0x0000000000283719
+ .text.task_remove
+                0x0000000000003719       0xbe task.bin
+                0x0000000000003719                task_remove
+
+.text.task_idle
+                0x00000000000037d7        0xd load address 0x00000000002837d7
+ .text.task_idle
+                0x00000000000037d7        0xd task.bin
+                0x00000000000037d7                task_idle
+
+.text.file_read_fat
+                0x00000000000037e4       0xb1 load address 0x00000000002837e4
+ .text.file_read_fat
+                0x00000000000037e4       0xb1 file.bin
+                0x00000000000037e4                file_read_fat
+
+.text.file_load_file
+                0x0000000000003895       0xa8 load address 0x0000000000283895
+ .text.file_load_file
+                0x0000000000003895       0xa8 file.bin
+                0x0000000000003895                file_load_file
+
+.text.file_search
+                0x000000000000393d      0x172 load address 0x000000000028393d
+ .text.file_search
+                0x000000000000393d      0x172 file.bin
+                0x000000000000393d                file_search
+
+.text.console_task
+                0x0000000000003aaf      0x352 load address 0x0000000000283aaf
+ .text.console_task
+                0x0000000000003aaf      0x352 console.bin
+                0x0000000000003aaf                console_task
+
+.text.cons_putchar
+                0x0000000000003e01      0x107 load address 0x0000000000283e01
+ .text.cons_putchar
+                0x0000000000003e01      0x107 console.bin
+                0x0000000000003e01                cons_putchar
+
+.text.cons_newline
+                0x0000000000003f08      0x107 load address 0x0000000000283f08
+ .text.cons_newline
+                0x0000000000003f08      0x107 console.bin
+                0x0000000000003f08                cons_newline
+
+.text.cons_runcmd
+                0x000000000000400f      0x114 load address 0x000000000028400f
+ .text.cons_runcmd
+                0x000000000000400f      0x114 console.bin
+                0x000000000000400f                cons_runcmd
+
+.text.cmd_app   0x0000000000004123      0x208 load address 0x0000000000284123
+ .text.cmd_app  0x0000000000004123      0x208 console.bin
+                0x0000000000004123                cmd_app
+
+.text.cons_putstr
+                0x000000000000432b       0x33 load address 0x000000000028432b
+ .text.cons_putstr
+                0x000000000000432b       0x33 console.bin
+                0x000000000000432b                cons_putstr
+
+.text.cons_putnstr
+                0x000000000000435e       0x3d load address 0x000000000028435e
+ .text.cons_putnstr
+                0x000000000000435e       0x3d console.bin
+                0x000000000000435e                cons_putnstr
+
+.text.cmd_mem   0x000000000000439b       0x4e load address 0x000000000028439b
+ .text.cmd_mem  0x000000000000439b       0x4e cmd.bin
+                0x000000000000439b                cmd_mem
+
+.text.cmd_cls   0x00000000000043e9       0x7e load address 0x00000000002843e9
+ .text.cmd_cls  0x00000000000043e9       0x7e cmd.bin
+                0x00000000000043e9                cmd_cls
+
+.text.cmd_dir   0x0000000000004467      0x134 load address 0x0000000000284467
+ .text.cmd_dir  0x0000000000004467      0x134 cmd.bin
+                0x0000000000004467                cmd_dir
+
+.text.cmd_type  0x000000000000459b       0xcb load address 0x000000000028459b
+ .text.cmd_type
+                0x000000000000459b       0xcb cmd.bin
+                0x000000000000459b                cmd_type
+
+.text.cmd_hlt   0x0000000000004666      0x113 load address 0x0000000000284666
+ .text.cmd_hlt  0x0000000000004666      0x113 cmd.bin
+                0x0000000000004666                cmd_hlt
+
+.text.hrb_api   0x0000000000004779       0x97 load address 0x0000000000284779
+ .text.hrb_api  0x0000000000004779       0x97 api.bin
+                0x0000000000004779                hrb_api
+
+.text.vsprint_num
+                0x0000000000004810       0xc3 load address 0x0000000000284810
+ .text.vsprint_num
+                0x0000000000004810       0xc3 ../libc/stdio/stdio.bin
+
+.text.vsprint_fmt
+                0x00000000000048d3      0x25c load address 0x00000000002848d3
+ .text.vsprint_fmt
+                0x00000000000048d3      0x25c ../libc/stdio/stdio.bin
+
+.text.vsprintf  0x0000000000004b2f       0x22 load address 0x0000000000284b2f
+ .text.vsprintf
+                0x0000000000004b2f       0x22 ../libc/stdio/stdio.bin
+                0x0000000000004b2f                vsprintf
+
+.text.sprintf   0x0000000000004b51       0x26 load address 0x0000000000284b51
+ .text.sprintf  0x0000000000004b51       0x26 ../libc/stdio/stdio.bin
+                0x0000000000004b51                sprintf
+
+.text.strcmp    0x0000000000004b77       0x46 load address 0x0000000000284b77
+ .text.strcmp   0x0000000000004b77       0x46 ../libc/string/strcmp.bin
+                0x0000000000004b77                strcmp
+
+.text.strncmp   0x0000000000004bbd       0x63 load address 0x0000000000284bbd
+ .text.strncmp  0x0000000000004bbd       0x63 ../libc/string/strncmp.bin
+                0x0000000000004bbd                strncmp
+
+.text.rand      0x0000000000004c20       0x27 load address 0x0000000000284c20
+ .text.rand     0x0000000000004c20       0x27 ../libc/stdlib/rand.bin
+                0x0000000000004c20                rand
+
+.text.__stack_chk_fail
+                0x0000000000004c47        0x6 load address 0x0000000000284c47
+ .text.__stack_chk_fail
+                0x0000000000004c47        0x6 ../libc/ssp/ssp.bin
+                0x0000000000004c47                __stack_chk_fail
+
+.rodata         0x0000000000284c50      0x1a7
+ *(.rodata)
+ .rodata        0x0000000000284c50       0x61 bootpack.bin
+ *fill*         0x0000000000284cb1        0x3 
+ .rodata        0x0000000000284cb4       0x28 int.bin
+ .rodata        0x0000000000284cdc       0x25 console.bin
+ .rodata        0x0000000000284d01       0x51 cmd.bin
+ *fill*         0x0000000000284d52        0x2 
+ .rodata        0x0000000000284d54       0xa3 ../libc/stdio/stdio.bin
+
+.eh_frame       0x0000000000284df8      0xcf8
+ .eh_frame      0x0000000000284df8       0x40 bootpack.bin
+ .eh_frame      0x0000000000284e38       0x78 desctbl.bin
+ .eh_frame      0x0000000000284eb0      0x148 graphic.bin
+ .eh_frame      0x0000000000284ff8       0x78 int.bin
+ .eh_frame      0x0000000000285070       0xa0 fifo.bin
+ .eh_frame      0x0000000000285110       0x78 keyboard.bin
+ .eh_frame      0x0000000000285188       0x78 mouse.bin
+ .eh_frame      0x0000000000285200      0x100 memory.bin
+ .eh_frame      0x0000000000285300      0x15c sheet.bin
+ .eh_frame      0x000000000028545c       0x88 window.bin
+ .eh_frame      0x00000000002854e4       0xd8 timer.bin
+ .eh_frame      0x00000000002855bc      0x154 task.bin
+ .eh_frame      0x0000000000285710       0x78 file.bin
+ .eh_frame      0x0000000000285788      0x100 console.bin
+ .eh_frame      0x0000000000285888       0xb8 cmd.bin
+ .eh_frame      0x0000000000285940       0x38 api.bin
+ .eh_frame      0x0000000000285978       0x98 ../libc/stdio/stdio.bin
+ .eh_frame      0x0000000000285a10       0x38 ../libc/string/strcmp.bin
+ .eh_frame      0x0000000000285a48       0x38 ../libc/string/strncmp.bin
+ .eh_frame      0x0000000000285a80       0x38 ../libc/stdlib/rand.bin
+ .eh_frame      0x0000000000285ab8       0x38 ../libc/ssp/ssp.bin
+
+.data           0x0000000000285b00     0x192c
+ *(.data)
+ .data          0x0000000000285b00      0x100 bootpack.bin
+ .data          0x0000000000285c00     0x1000 hankaku.bin
+                0x0000000000285c00                hankaku
+ .data          0x0000000000286c00        0x0 desctbl.bin
+ .data          0x0000000000286c00      0x140 graphic.bin
+ .data          0x0000000000286d40      0x100 int.bin
+ .data          0x0000000000286e40        0x0 fifo.bin
+ .data          0x0000000000286e40      0x100 keyboard.bin
+ .data          0x0000000000286f40      0x100 mouse.bin
+ .data          0x0000000000287040        0x0 memory.bin
+ .data          0x0000000000287040        0x0 sheet.bin
+ .data          0x0000000000287040       0xe0 window.bin
+ .data          0x0000000000287120        0x0 timer.bin
+ .data          0x0000000000287120        0x0 task.bin
+ .data          0x0000000000287120        0x0 file.bin
+ .data          0x0000000000287120      0x100 console.bin
+ .data          0x0000000000287220      0x100 cmd.bin
+ .data          0x0000000000287320      0x100 api.bin
+ .data          0x0000000000287420        0x4 ../libc/stdio/stdio.bin
+ .data          0x0000000000287424        0x0 ../libc/string/strcmp.bin
+ .data          0x0000000000287424        0x0 ../libc/string/strncmp.bin
+ .data          0x0000000000287424        0x4 ../libc/stdlib/rand.bin
+ .data          0x0000000000287428        0x4 ../libc/ssp/ssp.bin
+                0x0000000000287428                __stack_chk_guard
+
+.bss            0x0000000000287440     0x28a0
+ *(.bss)
+ .bss           0x0000000000287440        0x0 bootpack.bin
+ .bss           0x0000000000287440        0x0 desctbl.bin
+ .bss           0x0000000000287440        0x0 graphic.bin
+ .bss           0x0000000000287440        0x0 int.bin
+ .bss           0x0000000000287440        0x0 fifo.bin
+ .bss           0x0000000000287440       0x40 keyboard.bin
+                0x0000000000287440                keyfifo
+                0x0000000000287444                keydata0
+                0x0000000000287460                keybuf
+ .bss           0x0000000000287480       0xa0 mouse.bin
+                0x0000000000287480                mousefifo
+                0x0000000000287484                mousedata0
+                0x00000000002874a0                mousebuf
+ .bss           0x0000000000287520        0x0 memory.bin
+ .bss           0x0000000000287520        0x0 sheet.bin
+ .bss           0x0000000000287520        0x0 window.bin
+ .bss           0x0000000000287520     0x2720 timer.bin
+                0x0000000000287520                timerctl
+ .bss           0x0000000000289c40        0xc task.bin
+                0x0000000000289c40                task_timer
+                0x0000000000289c44                taskctl
+                0x0000000000289c48                mt_tr
+ .bss           0x0000000000289c4c        0x0 file.bin
+ .bss           0x0000000000289c4c        0x0 console.bin
+ .bss           0x0000000000289c4c        0x0 cmd.bin
+ .bss           0x0000000000289c4c        0x0 api.bin
+ *fill*         0x0000000000289c4c       0x14 
+ .bss           0x0000000000289c60       0x80 ../libc/stdio/stdio.bin
+ .bss           0x0000000000289ce0        0x0 ../libc/string/strcmp.bin
+ .bss           0x0000000000289ce0        0x0 ../libc/string/strncmp.bin
+ .bss           0x0000000000289ce0        0x0 ../libc/stdlib/rand.bin
+ .bss           0x0000000000289ce0        0x0 ../libc/ssp/ssp.bin
+LOAD bootpack.bin
+LOAD asmfunc.bin
+LOAD Stab.bin
+LOAD hankaku.bin
+LOAD desctbl.bin
+LOAD graphic.bin
+LOAD int.bin
+LOAD INThandler.bin
+LOAD fifo.bin
+LOAD keyboard.bin
+LOAD mouse.bin
+LOAD memory.bin
+LOAD sheet.bin
+LOAD window.bin
+LOAD timer.bin
+LOAD task.bin
+LOAD file.bin
+LOAD console.bin
+LOAD cmd.bin
+LOAD api.bin
+LOAD asm_api.bin
+LOAD ../libc/stdio/stdio.bin
+LOAD ../libc/string/strcmp.bin
+LOAD ../libc/string/strncmp.bin
+LOAD ../libc/stdlib/rand.bin
+LOAD ../libc/ssp/ssp.bin
+OUTPUT(kernel.sys binary)
+
+.comment        0x0000000000000000      0x39c
+ .comment       0x0000000000000000       0x2c bootpack.bin
+ .comment       0x000000000000002c       0x2c desctbl.bin
+ .comment       0x0000000000000058       0x2c graphic.bin
+ .comment       0x0000000000000084       0x2c int.bin
+ .comment       0x00000000000000b0       0x2c fifo.bin
+ .comment       0x00000000000000dc       0x2c keyboard.bin
+ .comment       0x0000000000000108       0x2c mouse.bin
+ .comment       0x0000000000000134       0x2c memory.bin
+ .comment       0x0000000000000160       0x2c sheet.bin
+ .comment       0x000000000000018c       0x2c window.bin
+ .comment       0x00000000000001b8       0x2c timer.bin
+ .comment       0x00000000000001e4       0x2c task.bin
+ .comment       0x0000000000000210       0x2c file.bin
+ .comment       0x000000000000023c       0x2c console.bin
+ .comment       0x0000000000000268       0x2c cmd.bin
+ .comment       0x0000000000000294       0x2c api.bin
+ .comment       0x00000000000002c0       0x2c ../libc/stdio/stdio.bin
+ .comment       0x00000000000002ec       0x2c ../libc/string/strcmp.bin
+ .comment       0x0000000000000318       0x2c ../libc/string/strncmp.bin
+ .comment       0x0000000000000344       0x2c ../libc/stdlib/rand.bin
+ .comment       0x0000000000000370       0x2c ../libc/ssp/ssp.bin
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 bootpack.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 desctbl.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 graphic.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 int.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 fifo.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 keyboard.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 mouse.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 memory.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 sheet.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 window.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 timer.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 task.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 file.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 console.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 cmd.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 api.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 ../libc/stdio/stdio.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 ../libc/string/strcmp.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 ../libc/string/strncmp.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 ../libc/stdlib/rand.bin
+ .note.GNU-stack
+                0x0000000000000000        0x0 ../libc/ssp/ssp.bin
+
+.debug_info     0x0000000000000000      0x44b
+ .debug_info    0x0000000000000000      0x26e ../libc/stdio/stdio.bin
+ .debug_info    0x000000000000026e       0x7a ../libc/string/strcmp.bin
+ .debug_info    0x00000000000002e8       0xa8 ../libc/string/strncmp.bin
+ .debug_info    0x0000000000000390       0x5d ../libc/stdlib/rand.bin
+ .debug_info    0x00000000000003ed       0x5e ../libc/ssp/ssp.bin
+
+.debug_abbrev   0x0000000000000000      0x2c8
+ .debug_abbrev  0x0000000000000000      0x118 ../libc/stdio/stdio.bin
+ .debug_abbrev  0x0000000000000118       0x6a ../libc/string/strcmp.bin
+ .debug_abbrev  0x0000000000000182       0x93 ../libc/string/strncmp.bin
+ .debug_abbrev  0x0000000000000215       0x56 ../libc/stdlib/rand.bin
+ .debug_abbrev  0x000000000000026b       0x5d ../libc/ssp/ssp.bin
+
+.debug_aranges  0x0000000000000000       0xb8
+ .debug_aranges
+                0x0000000000000000       0x38 ../libc/stdio/stdio.bin
+ .debug_aranges
+                0x0000000000000038       0x20 ../libc/string/strcmp.bin
+ .debug_aranges
+                0x0000000000000058       0x20 ../libc/string/strncmp.bin
+ .debug_aranges
+                0x0000000000000078       0x20 ../libc/stdlib/rand.bin
+ .debug_aranges
+                0x0000000000000098       0x20 ../libc/ssp/ssp.bin
+
+.debug_rnglists
+                0x0000000000000000       0x73
+ .debug_rnglists
+                0x0000000000000000       0x27 ../libc/stdio/stdio.bin
+ .debug_rnglists
+                0x0000000000000027       0x13 ../libc/string/strcmp.bin
+ .debug_rnglists
+                0x000000000000003a       0x13 ../libc/string/strncmp.bin
+ .debug_rnglists
+                0x000000000000004d       0x13 ../libc/stdlib/rand.bin
+ .debug_rnglists
+                0x0000000000000060       0x13 ../libc/ssp/ssp.bin
+
+.debug_line     0x0000000000000000      0x397
+ .debug_line    0x0000000000000000      0x1dc ../libc/stdio/stdio.bin
+ .debug_line    0x00000000000001dc       0x70 ../libc/string/strcmp.bin
+ .debug_line    0x000000000000024c       0x99 ../libc/string/strncmp.bin
+ .debug_line    0x00000000000002e5       0x5b ../libc/stdlib/rand.bin
+ .debug_line    0x0000000000000340       0x57 ../libc/ssp/ssp.bin
+
+.debug_str      0x0000000000000000      0x455
+ .debug_str     0x0000000000000000      0x13c ../libc/stdio/stdio.bin
+ .debug_str     0x000000000000013c       0xba ../libc/string/strcmp.bin
+ .debug_str     0x00000000000001f6       0xc2 ../libc/string/strncmp.bin
+ .debug_str     0x00000000000002b8       0xbd ../libc/stdlib/rand.bin
+ .debug_str     0x0000000000000375       0xe0 ../libc/ssp/ssp.bin
+
+.debug_line_str
+                0x0000000000000000      0x1f8
+ .debug_line_str
+                0x0000000000000000       0x6e ../libc/stdio/stdio.bin
+ .debug_line_str
+                0x000000000000006e       0x5b ../libc/string/strcmp.bin
+ .debug_line_str
+                0x00000000000000c9       0x76 ../libc/string/strncmp.bin
+ .debug_line_str
+                0x000000000000013f       0x55 ../libc/stdlib/rand.bin
+ .debug_line_str
+                0x0000000000000194       0x64 ../libc/ssp/ssp.bin
