@@ -1,0 +1,12 @@
+break main
+break console_task
+break /home/jin/MakeOwnOS/day17/console.c:70
+break cons_runcmd
+break /home/jin/MakeOwnOS/day17/console.c:154
+break cmd_app
+break /home/jin/MakeOwnOS/day17/console.c:188
+break /home/jin/MakeOwnOS/day17/console.c:191
+break elf32_validate
+break start_app
+break /home/jin/MakeOwnOS/day17/console.c:213
+break /home/jin/MakeOwnOS/day17/asmfunc.asm:192
