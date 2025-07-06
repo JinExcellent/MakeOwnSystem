@@ -1,4 +1,4 @@
-**This is the microkernel operating system I made with reference to "30-day self-made operating system" and OSdev firum**
+# **This is the microkernel operating system I made with reference to "30-day self-made operating system" and OSdev firum**
 
 The following modules are mainly implemented:
 
@@ -12,11 +12,11 @@ The following modules are mainly implemented:
 8. Manually implement context switching and switching between kernel mode and user mode
 9. Implement system call functions for displaying characters and creating windows
 
-##Project compilation and running:
+## Project compilation and running:
 
 Running `run.sh`can automatically compile and start the system kernel, `-d` is the debugging option.
 
-##Project debugging method:
+## Project debugging method:
 
 1. Refer to the debugging configuration file `.gdbinit`
 
